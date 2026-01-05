@@ -18,7 +18,7 @@ export default function App() {
         id: 1, 
         title: "QA - Manual Testing Level", 
         desc: "Comprehensive understanding of testing methodologies.", 
-        image: "../Screenshot 2026-01-05 211541.png"
+        image: "./Screenshot 2026-01-05 211541.png"
       }
     ]
   };
