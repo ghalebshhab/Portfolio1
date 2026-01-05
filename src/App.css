@@ -37,7 +37,7 @@ body {
   animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
   white-space: nowrap; overflow: hidden; width: 0;
 }
-@keyframes typing { to { width: 100%; } }
+@keyframes typing { to { width: 90%; } }
 @keyframes blink { 50% { border-color: transparent; } }
 
 /* --- 2. LAYOUT --- */
