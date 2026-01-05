@@ -31,11 +31,16 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 .loading-text {
-  font-size: 1.5rem; color: transparent;
-  background: var(--gradient); -webkit-background-clip: text;
+  font-size: 1.5rem;
+  color: transparent;
+  background: var(--gradient);
+  -webkit-background-clip: text;
   border-right: 2px solid var(--accent-cyan);
-  animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
-  white-space: nowrap; overflow: hidden; width: 0;
+  animation: typing 4.25s steps(30, end), blink 0.75s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  -webkit-animation: typing 4.25s steps(30, end), blink 0.75s step-end infinite;
 }
 @keyframes typing { to { width: 100%; } }
 @keyframes blink { 50% { border-color: transparent; } }
