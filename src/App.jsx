@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import Image from "./Screenshot 2026-01-05 211541.png";
+import Me from "./IMG_2992.JPG";
 import { 
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub, 
   FaExternalLinkAlt, FaCode, FaLaptopCode, FaBars, FaTimes 
@@ -18,14 +20,14 @@ export default function App() {
         id: 1, 
         title: "QA - Manual Testing Level", 
         desc: "Comprehensive understanding of testing methodologies.", 
-        image: "./Screenshot 2026-01-05 211541.png"
+        image: {Image}
       }
     ]
   };
 
   // --- 1. Loading Timer ---
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3500);
+    const timer = setTimeout(() => setLoading(false), 5000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -142,17 +144,23 @@ export default function App() {
             </header>
 
             {/* ABOUT */}
-            <section id="about" className="reveal">
-              <h2 className="section-header">01. About Me</h2>
-              <div className="glass-card about-card">
-                <p>
-                  I am a passionate <strong>Software Engineer</strong> based in Jordan, dedicated to creating efficient, scalable, and visually engaging web applications. My work bridges the gap between complex backend logic and intuitive frontend design.
-                </p>
-                <p style={{ marginTop: '1rem' }}>
-                  With a focus on <strong>React.js</strong> and modern web standards, I transform ideas into deployed reality. I am currently looking for opportunities to bring my technical expertise to a forward-thinking team.
-                </p>
-              </div>
-            </section>
+        <section id="about" className="reveal">
+  <h2 className="section-header">01. About Me</h2>
+  <div className="glass-card about-card about-photo-wrapper">
+    <div className="about-photo">
+      <img src={Me} alt="Profile" />
+    </div>
+    <div className="about-text">
+      <p>
+        I am a passionate <strong>Software Engineer</strong> focused on building responsive, user-friendly web applications. Skilled in <strong>React.js</strong>, <strong>Next.js</strong>, <strong>Bootstrap</strong>, and <strong>Tailwind CSS</strong>, I bring ideas to life with clean, efficient code.
+      </p>
+      <p style={{ marginTop: '1rem' }}>
+        I also have experience with <strong>Node.js</strong> and <strong>MongoDB</strong>, and possess <strong>Manual QA Testing</strong> skills to ensure high-quality, reliable products. I strive to create seamless digital experiences that are both functional and visually engaging.
+      </p>
+    </div>
+  </div>
+</section>
+
 
             {/* EXPERTISE */}
             <section id="expertise" className="reveal">
@@ -194,7 +202,7 @@ export default function App() {
                 {data.certifications.map((cert) => (
                   <div key={cert.id} className="glass-card cert-card">
                     <div className="cert-img-wrapper">
-                      <img src={cert.image} alt={cert.title} />
+                      <img src={Image} alt={cert.title} />
                     </div>
                     <div className="cert-content">
                       <h3>{cert.title}</h3>
@@ -220,11 +228,10 @@ export default function App() {
                 <p className="footer-sub">I am currently available for freelance work or full-time positions.</p>
                 
                 <div className="socials">
-                  <a href="https://linkedin.com" className="social-btn"><FaLinkedin /></a>
-                  <a href="https://wa.me/" className="social-btn"><FaWhatsapp /></a>
-                  <a href="https://instagram.com" className="social-btn"><FaInstagram /></a>
-                  <a href="https://facebook.com" className="social-btn"><FaFacebook /></a>
-                  <a href="https://github.com/ghalebshhab" className="social-btn"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/ghaleb-shhab-99518b2b2?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" className="social-btn"><FaLinkedin /></a>
+                  <a href="https://wa.me/9621852089" target="_blank" className="social-btn"><FaWhatsapp /></a>
+                  <a href="https://www.instagram.com/ghm_shh" target="_blank" className="social-btn"><FaInstagram /></a>
+                  <a href="https://github.com/ghalebshhab" target="_blank" className="social-btn"><FaGithub /></a>
                 </div>
                 
                 <div className="copyright">
