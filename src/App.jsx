@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import Image from "./Screenshot 2026-01-05 211541.png";
+import Image2 from "./Screenshot 2026-01-07 231901.png";
+import Image3 from "./Screenshot 2026-01-07 231810.png";
 import Me from "./IMG_2992.JPG";
 import { 
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub, 
@@ -20,7 +22,19 @@ export default function App() {
         id: 1, 
         title: "QA - Manual Testing Level", 
         desc: "Comprehensive understanding of testing methodologies.", 
-        image: {Image}
+        image: Image
+      },
+      { 
+        id: 2, 
+        title: "Postman API Testing", 
+        desc: "Comprehensive understanding Of API testing using Postman.", 
+        image: Image2
+      },
+      { 
+        id: 3, 
+        title: "Postman Automation Project", 
+        desc: "Comprehensive understanding Of API Automation using Postman.", 
+        image: Image3
       }
     ]
   };
@@ -202,7 +216,7 @@ export default function App() {
                 {data.certifications.map((cert) => (
                   <div key={cert.id} className="glass-card cert-card">
                     <div className="cert-img-wrapper">
-                      <img src={Image} alt={cert.title} />
+                      <img src={cert.image} alt={cert.title} />
                     </div>
                     <div className="cert-content">
                       <h3>{cert.title}</h3>
