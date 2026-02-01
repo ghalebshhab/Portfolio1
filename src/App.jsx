@@ -3,6 +3,7 @@ import "./App.css";
 import Image from "./Screenshot 2026-01-05 211541.png";
 import Image2 from "./Screenshot 2026-01-07 231901.png";
 import Image3 from "./Screenshot 2026-01-07 231810.png";
+import Image4 from "./Selinium.png";
 import Me from "./IMG_2992.JPG";
 import { 
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub, 
@@ -35,6 +36,12 @@ export default function App() {
         title: "Postman Automation Project", 
         desc: "Comprehensive understanding Of API Automation using Postman.", 
         image: Image3
+      },
+       { 
+        id: 4, 
+        title: "Selinium Automation Course", 
+        desc: "Comprehensive understanding Of Selenium Automation, Maven,Java, TestNG, Git, Jenkins, Page Object Model.", 
+        image: Image4
       }
     ]
   };
@@ -228,12 +235,49 @@ export default function App() {
             </section>
 
             {/* PROJECTS */}
-            <section id="projects" className="reveal">
-              <h2 className="section-header">04. Projects</h2>
-              <div className="grid">
-                No Projects For Now .
-              </div>
-            </section>
+            {/* PROJECTS */}
+<section id="projects" className="reveal">
+  <h2 className="section-header">04. Projects</h2>
+  <div className="grid">
+    
+    {/* WRAPPER DIV STARTS HERE */}
+    <div className="glass-card project-detail-card"> 
+      
+      <h2>QA Automation – API & UI Testing</h2>
+      <p className="project-subtitle">
+        Postman API Testing & Selenium UI Automation (Java + Maven)
+      </p>
+
+      <p>
+        Automated testing framework covering REST APIs and UI features
+        for a Todo application. The project validates authentication,
+        data integrity, and user flows using industry-standard QA tools.
+      </p>
+
+      <h4>Key Features:</h4>
+      <ul>
+        <li>API testing using Postman with automated assertions</li>
+        <li>CRUD testing for Todo endpoints</li>
+        <li>Authentication via Bearer Token</li>
+        <li>UI feature testing using Selenium WebDriver</li>
+        <li>Java + Maven project structure</li>
+        <li>Tests organized by feature for maintainability</li>
+      </ul>
+
+      <h4>Tools & Technologies:</h4>
+      <p>Postman, Selenium, Java, Maven, Eclipse, Git, GitHub</p>
+
+      <div className="project-links">
+        <a href="https://github.com/ghalebshhab/Automation-Project" target="_blank" rel="noopener noreferrer">
+          <FaGithub style={{ marginRight: '8px' }} /> View on GitHub
+        </a>
+      </div>
+
+    </div>
+    {/* WRAPPER DIV ENDS HERE */}
+
+  </div>
+</section>
 
             {/* FOOTER (CENTERED) */}
             <footer id="contact">

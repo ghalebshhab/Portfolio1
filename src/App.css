@@ -177,11 +177,96 @@ button {
 .tag-outline { background: transparent; border: 1px solid #333; color: var(--text-muted); }
 
 /* Projects */
-.project-card { display: flex; flex-direction: column; height: 100%; }
-.project-top { display: flex; justify-content: space-between; margin-bottom: 25px; }
-.project-top a { color: var(--text-main); font-size: 1.2rem; }
-.project-tags { display: flex; gap: 15px; font-family: 'JetBrains Mono'; font-size: 0.8rem; color: #555; margin-top: auto; }
 
+
+/* --- NEW PROJECT SECTION STYLES --- */
+
+/* 1. Styling the Card Content */
+.project-detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 2. The Project Title (QA Automation...) */
+.project-detail-card h2 {
+  font-size: 1.5rem;
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+/* 3. The Subtitle (Postman API...) */
+.project-subtitle {
+  color: var(--accent-cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+/* 4. Headings (Key Features/Tools) */
+.project-detail-card h4 {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+  width: fit-content;
+}
+
+/* 5. The List (Key Features) */
+.project-detail-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.project-detail-card ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Add a custom arrow bullet point */
+.project-detail-card ul li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  color: var(--accent-purple);
+  font-size: 1.2rem;
+  line-height: 1rem;
+}
+
+/* 6. Tools & Technologies Text */
+.project-detail-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* 7. The GitHub Link Button */
+.project-links {
+  margin-top: 25px;
+}
+
+.project-links a {
+  text-decoration: none;
+  color: var(--accent-cyan);
+  border: 1px solid var(--accent-cyan);
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.project-links a:hover {
+  background: rgba(0, 195, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 195, 255, 0.2);
+  transform: translateY(-2px);
+}
 /* Certifications with Images */
 .cert-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
 .cert-img-wrapper { width: 100%; height: 80%; background: #111; border-bottom: 1px solid var(--border); }
