@@ -4,6 +4,8 @@ import Image from "./Screenshot 2026-01-05 211541.png";
 import Image2 from "./Screenshot 2026-01-07 231901.png";
 import Image3 from "./Screenshot 2026-01-07 231810.png";
 import Image4 from "./Selinium.png";
+import Image5 from "./Selinium-proj.png";
+import Image6 from "./Step-Certificate.png";
 import Me from "./IMG_2992.JPG";
 import { 
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub, 
@@ -16,35 +18,46 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // --- DATA: Update your details here ---
-  const data = {
-    certifications: [
-     
-      { 
-        id: 1, 
-        title: "QA - Manual Testing Level", 
-        desc: "Comprehensive understanding of testing methodologies.", 
-        image: Image
-      },
-      { 
-        id: 2, 
-        title: "Postman API Testing", 
-        desc: "Comprehensive understanding Of API testing using Postman.", 
-        image: Image2
-      },
-      { 
-        id: 3, 
-        title: "Postman Automation Project", 
-        desc: "Comprehensive understanding Of API Automation using Postman.", 
-        image: Image3
-      },
-       { 
-        id: 4, 
-        title: "Selinium Automation Course", 
-        desc: "Comprehensive understanding Of Selenium Automation, Maven,Java, TestNG, Git, Jenkins, Page Object Model.", 
-        image: Image4
-      }
-    ]
-  };
+ const data = {
+  certifications: [
+    { 
+      id: 1, 
+      title: "Web QA Automation Testing ", 
+      desc: "Completed a 40-hour hands-on course in Web QA Automation Testing using Java, Selenium WebDriver, TestNG, and Maven, focusing on building automated tests and executing test suites for web applications.", 
+      image: Image6
+    }, 
+    { 
+      id: 2, 
+      title: "Selenium Automation Course", 
+      desc: "Gained comprehensive knowledge of Selenium Automation using Java, Maven, TestNG, Git, Jenkins, and the Page Object Model for building maintainable test frameworks.", 
+      image: Image4
+    }, 
+    { 
+      id: 3, 
+      title: "Selenium Automation Project", 
+      desc: "Built an end-to-end UI test automation project using Selenium WebDriver, Java, Maven, TestNG, Git, Page Object Model, GitHub Actions for CI/CD, and Allure for reporting.", 
+      image: Image5
+    },
+    { 
+      id: 4, 
+      title: "QA Manual Testing", 
+      desc: "Developed a strong foundation in manual testing practices, test case design, bug reporting, and core software testing methodologies.", 
+      image: Image
+    },
+    { 
+      id: 5, 
+      title: "Postman API Testing Course", 
+      desc: "Learned API testing fundamentals using Postman, including sending requests, validating responses, and testing RESTful endpoints.", 
+      image: Image2
+    },
+    { 
+      id: 6, 
+      title: "Postman API Automation Project", 
+      desc: "Implemented automated API testing workflows using Postman collections, environments, and basic scripting for validating REST APIs.", 
+      image: Image3
+    }
+  ]
+};
 
   // --- 1. Loading Timer ---
   useEffect(() => {
@@ -239,44 +252,56 @@ export default function App() {
 <section id="projects" className="reveal">
   <h2 className="section-header">04. Projects</h2>
   <div className="grid">
+  
+  {/* WRAPPER DIV STARTS HERE */}
+  <div className="glass-card project-detail-card"> 
     
-    {/* WRAPPER DIV STARTS HERE */}
-    <div className="glass-card project-detail-card"> 
-      
-      <h2>QA Automation – API & UI Testing</h2>
-      <p className="project-subtitle">
-        Postman API Testing & Selenium UI Automation (Java + Maven)
-      </p>
+    <h2>QA Automation – API & UI Testing</h2>
+    <p className="project-subtitle">
+      Selenium UI Automation & API Testing (Java + Maven)
+    </p>
 
-      <p>
-        Automated testing framework covering REST APIs and UI features
-        for a Todo application. The project validates authentication,
-        data integrity, and user flows using industry-standard QA tools.
-      </p>
+    <p>
+      End-to-end QA automation framework for a Todo application,
+      covering both REST API and UI testing. The project focuses on
+      validating authentication flows, business logic, data consistency,
+      and user interactions using a clean, maintainable test architecture.
+    </p>
 
-      <h4>Key Features:</h4>
-      <ul>
-        <li>API testing using Postman with automated assertions</li>
-        <li>CRUD testing for Todo endpoints</li>
-        <li>Authentication via Bearer Token</li>
-        <li>UI feature testing using Selenium WebDriver</li>
-        <li>Java + Maven project structure</li>
-        <li>Tests organized by feature for maintainability</li>
-      </ul>
+    <h4>Key Features:</h4>
+    <ul>
+      <li>REST API testing with automated assertions and validations</li>
+      <li>API-driven authentication (login requests used to generate tokens)</li>
+      <li>CRUD testing for Todo endpoints (Create, Read, Update, Delete)</li>
+      <li>UI feature testing using Selenium WebDriver</li>
+      <li>Hybrid testing approach combining API + UI for faster and reliable tests</li>
+      <li>Test cases organized by feature and responsibility</li>
+      <li>Reusable utilities, configs, and helpers for scalability</li>
+      <li>Allure Reports for clear and visual test results</li>
+      <li>CI pipeline using GitHub Actions to run tests automatically</li>
+    </ul>
 
-      <h4>Tools & Technologies:</h4>
-      <p>Postman, Selenium, Java, Maven, Eclipse, Git, GitHub</p>
+    <h4>Tools & Technologies:</h4>
+    <p>
+      Java, Maven, Selenium WebDriver, REST API Testing, Allure Report,
+      GitHub Actions, Git, Eclipse
+    </p>
 
-      <div className="project-links">
-        <a href="https://github.com/ghalebshhab/Automation-Project" target="_blank" rel="noopener noreferrer">
-          <FaGithub style={{ marginRight: '8px' }} /> View on GitHub
-        </a>
-      </div>
-
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Selinium-Automation-Project"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub style={{ marginRight: '8px' }} /> View on GitHub
+      </a>
     </div>
-    {/* WRAPPER DIV ENDS HERE */}
 
   </div>
+  {/* WRAPPER DIV ENDS HERE */}
+
+</div>
+
 </section>
 
             {/* FOOTER (CENTERED) */}
