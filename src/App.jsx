@@ -73,6 +73,7 @@ export default function App() {
   const navLinks = [
     { id:"home",           label:"Home"           },
     { id:"about",          label:"About"          },
+    { id:"education",      label:"Education"      },
     { id:"expertise",      label:"Skills"         },
     { id:"certifications", label:"Certifications" },
     { id:"projects",       label:"Projects"       },
@@ -241,10 +242,122 @@ export default function App() {
             </section>
 
             {/* ════════════════════════════════════════
+                EDUCATION
+            ════════════════════════════════════════ */}
+            <section id="education" className="reveal">
+              <h2 className="section-header">02. Education</h2>
+
+              <div className="edu-timeline">
+
+                {/* ── ENTRY 1 ── */}
+                <div className="edu-item reveal">
+                  <div className="edu-left">
+                    <div className="edu-year-badge">
+                      <span>2022</span>
+                      <div className="edu-year-line"></div>
+                      <span>2026</span>
+                    </div>
+                  </div>
+                  <div className="edu-connector">
+                    <div className="edu-dot edu-dot--primary"></div>
+                    <div className="edu-thread"></div>
+                  </div>
+                  <div className="glass-card edu-card">
+                    <div className="edu-card-top">
+                      <div className="edu-icon-wrap">🎓</div>
+                      <div className="edu-meta">
+                        <div className="edu-degree">Bachelor of   Software Engineering</div>
+                        <div className="edu-school">Faculty of Information Technology</div>
+                        <div className="edu-location">📍 Zarqa, Jordan</div>
+                      </div>
+                      <div className="edu-status edu-status--done">Completed</div>
+                    </div>
+                    <p className="edu-desc">
+                      Comprehensive study of software engineering, data structures, algorithms,
+                      database design, operating systems, and web development. Culminating with
+                      the <strong>JoMap graduation project</strong> — a full-stack geospatial
+                      mapping platform built from the ground up.
+                    </p>
+                    <div className="edu-highlights">
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>Graduation Project: JoMap — Full-Stack Mobile Mapping Platform</span>
+                      </div>
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>Focus areas: Software Engineering, Databases, Web &amp; Mobile Dev</span>
+                      </div>
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>Completed 40+ hrs of QA Automation training alongside degree</span>
+                      </div>
+                    </div>
+                    <div className="edu-tags">
+                      {["Java","Spring Boot","React.js","MySQL","Algorithms","Data Structures","Software Engineering"].map((t,i) => (
+                        <span key={i} className="edu-tag">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* ── ENTRY 2 ── */}
+                <div className="edu-item reveal">
+                  <div className="edu-left">
+                    <div className="edu-year-badge">
+                      <span>2025-11</span>
+                      <div className="edu-year-line"></div>
+                      <span>2026-2</span>
+                    </div>
+                  </div>
+                  <div className="edu-connector">
+                    <div className="edu-dot edu-dot--secondary"></div>
+                    <div className="edu-thread edu-thread--short"></div>
+                  </div>
+                  <div className="glass-card edu-card">
+                    <div className="edu-card-top">
+                      <div className="edu-icon-wrap edu-icon-wrap--purple">🧪</div>
+                      <div className="edu-meta">
+                        <div className="edu-degree">QA Engineering &amp; Test Automation</div>
+                        <div className="edu-school">Step IT Academy — Training Program</div>
+                        <div className="edu-location">📍 Amman, Jordan</div>
+                      </div>
+                      <div className="edu-status edu-status--done">Completed</div>
+                    </div>
+                    <p className="edu-desc">
+                      Intensive hands-on training covering the full QA spectrum — from manual
+                      testing fundamentals through advanced automation frameworks. Includes
+                      real project delivery with CI/CD pipelines and industry tooling.
+                    </p>
+                    <div className="edu-highlights">
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>Selenium WebDriver automation with Java, TestNG &amp; Maven</span>
+                      </div>
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>REST API testing with Postman and automated collections</span>
+                      </div>
+                      <div className="edu-highlight-item">
+                        <span className="edu-highlight-icon">▹</span>
+                        <span>CI/CD pipeline setup with GitHub Actions &amp; Allure Reports</span>
+                      </div>
+                    </div>
+                    <div className="edu-tags">
+                      {["Selenium","Java","TestNG","Postman","Jira","GitHub Actions","Allure","Maven"].map((t,i) => (
+                        <span key={i} className="edu-tag edu-tag--purple">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+
+            {/* ════════════════════════════════════════
                 SKILLS
             ════════════════════════════════════════ */}
             <section id="expertise" className="reveal">
-              <h2 className="section-header">02. Skills &amp; Expertise</h2>
+              <h2 className="section-header">03. Skills &amp; Expertise</h2>
 
               <div className="glass-card terminal-skills">
                 <div className="terminal-header">
@@ -294,7 +407,7 @@ export default function App() {
                 CERTIFICATIONS
             ════════════════════════════════════════ */}
             <section id="certifications" className="reveal">
-              <h2 className="section-header">03. Certifications &amp; Achievements</h2>
+              <h2 className="section-header">04. Certifications &amp; Achievements</h2>
 
               <div className="glass-card terminal-skills">
                 <div className="terminal-header">
@@ -352,7 +465,7 @@ export default function App() {
                 PROJECTS
             ════════════════════════════════════════ */}
             <section id="projects" className="reveal">
-              <h2 className="section-header">04. Featured Projects</h2>
+              <h2 className="section-header">05. Featured Projects</h2>
 
               <div className="glass-card terminal-skills">
                 <div className="terminal-header">
