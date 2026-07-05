@@ -6,6 +6,7 @@ import Image3 from "./Screenshot 2026-01-07 231810.png";
 import Image4 from "./Selinium.png";
 import Image5 from "./Selinium-proj.png";
 import Image6 from "./Step-Certificate.png";
+import Image7 from "./spring-boot-certificate.jpg";
 import yourImage from "../src/Me-6.jpeg";
 import {
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub,
@@ -37,6 +38,15 @@ export default function App() {
       { id:6, title:"Postman API Automation Project",issuer:"Practical Project",date:"2025",
         desc:"Implemented automated API testing workflows using Postman collections, environments, and scripting for validating REST APIs.",
         image:Image3, credential:"#" },
+        {
+  id: 7,
+  title: "Master Spring Boot 4, Spring 7 & Hibernate 7",
+  issuer: "Udemy",
+  date: "2026",
+  desc: "Mastered enterprise Java development using Spring Boot 4, Spring 7, and Hibernate 7. Gained hands-on experience in building secure REST APIs, implementing Spring Security, developing MVC applications, managing databases with JPA/Hibernate, applying AOP concepts, and creating full-stack CRUD applications following industry best practices.",
+  image: Image7,
+  credential: "#"
+},
     ],
   };
 
