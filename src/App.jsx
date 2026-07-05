@@ -176,9 +176,7 @@ export default function App() {
 
                 {/* PHOTO */}
                 <div className="hero-image-wrapper">
-                  <div className="ring ring-1"></div>
-                  <div className="ring ring-2"></div>
-                  <div className="ring ring-3"></div>
+                  
 
                   <div className="photo-container">
                     <div className="photo-neon-frame"></div>
@@ -187,7 +185,7 @@ export default function App() {
                       <div className="photo-scan"></div>
                     </div>
                     <span className="code-tag tl">&lt;dev /&gt;</span>
-                    <span className="code-tag br">ghaleb.sh</span>
+                    <span className="code-tag br">G7lb</span>
                   </div>
 
                   <div className="photo-glow"></div>
@@ -396,8 +394,8 @@ export default function App() {
                     {["Kotlin","Spring Boot","Java","MySQL","REST API"].map((t,i) => <span key={i}>{t}</span>)}
                   </div>
                   <div className="project-links">
-                    <a href="#" target="_blank" rel="noopener noreferrer"><FaGithub /> Frontend Repo</a>
-                    <a href="#" target="_blank" rel="noopener noreferrer"><FaGithub /> Backend Repo</a>
+                    <a href="https://github.com/ziadmq/JoMap" target="_blank" rel="noopener noreferrer"><FaGithub /> Frontend Repo</a>
+                    <a href="https://github.com/ghalebshhab/GraduationProjectv1" target="_blank" rel="noopener noreferrer"><FaGithub /> Backend Repo</a>
                   </div>
                 </div>
 
