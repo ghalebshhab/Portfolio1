@@ -8,15 +8,29 @@ import Image5 from "./Selinium-proj.png";
 import Image6 from "./Step-Certificate.png";
 import Image7 from "./spring-boot-certificate.jpg";
 import yourImage from "../src/Me-6.jpeg";
-import {
-  FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub,
-  FaBars, FaTimes
-} from "react-icons/fa";
+import JoMapImage from "./Jomap-pict.png";
+import AutomationImage from "./qa_automation_project_banner.png";
+import TodoProjectImage from "./Todo-List.png";
+import WeatherProjectImage from "./Weather-App.png";
+import CvImage from "./Cv-Generator.png";
 
+import {
+  FaLinkedin,
+  FaWhatsapp,
+  FaInstagram,
+  FaGithub,
+  FaEnvelope,
+  FaDownload,
+  FaBriefcase,
+  FaLaptopCode,
+  FaBug,
+  FaGlobe,
+  FaArrowUpRightFromSquare
+} from "react-icons/fa6";
 export default function App() {
   const [loading, setLoading]           = useState(true);
   const [activeSection, setActiveSection] = useState("home");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeProjectFilter, setActiveProjectFilter] = useState("all");
 
   const data = {
     certifications: [
@@ -51,9 +65,70 @@ export default function App() {
   };
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 4000);
-    return () => clearTimeout(t);
+    document.body.classList.add("is-loading");
+    const timer = setTimeout(() => {
+      setLoading(false);
+      document.body.classList.remove("is-loading");
+    }, 3600);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.classList.remove("is-loading");
+    };
   }, []);
+
+  useEffect(() => {
+    const finePointer = window.matchMedia("(pointer: fine)").matches;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!finePointer || reducedMotion) return;
+
+    const dot = document.querySelector(".custom-cursor-dot");
+    const ring = document.querySelector(".custom-cursor-ring");
+    if (!dot || !ring) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let frameId;
+
+    const moveCursor = (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      document.body.classList.add("cursor-visible");
+    };
+
+    const animateRing = () => {
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      frameId = requestAnimationFrame(animateRing);
+    };
+
+    const setHover = (event) => {
+      document.body.classList.toggle(
+        "cursor-hovering",
+        Boolean(event.target.closest("a, button, [role='button'], .project-card, .social-btn"))
+      );
+    };
+
+    const hideCursor = () => document.body.classList.remove("cursor-visible");
+    window.addEventListener("mousemove", moveCursor);
+    document.addEventListener("mouseover", setHover);
+    document.addEventListener("mouseout", setHover);
+    document.addEventListener("mouseleave", hideCursor);
+    animateRing();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("mousemove", moveCursor);
+      document.removeEventListener("mouseover", setHover);
+      document.removeEventListener("mouseout", setHover);
+      document.removeEventListener("mouseleave", hideCursor);
+      document.body.classList.remove("cursor-visible", "cursor-hovering");
+    };
+  }, [loading]);
 
   useEffect(() => {
     if (loading) return;
@@ -66,18 +141,50 @@ export default function App() {
     );
     document.querySelectorAll(".reveal").forEach((el) => revealObs.observe(el));
 
-    const navObs = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActiveSection(e.target.id); }),
-      { threshold: 0.3 }
-    );
-    document.querySelectorAll("section, header").forEach((el) => navObs.observe(el));
+    const sectionIds = [
+      "home",
+      "about",
+      "education",
+      "expertise",
+      "certifications",
+      "projects",
+      "contact",
+    ];
 
-    return () => { revealObs.disconnect(); navObs.disconnect(); };
+    const updateActiveSection = () => {
+      const navigationLine = window.scrollY + 130;
+      let currentSection = "home";
+
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= navigationLine) {
+          currentSection = id;
+        }
+      });
+
+      const nearPageBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
+
+      setActiveSection(nearPageBottom ? "contact" : currentSection);
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+
+    return () => {
+      revealObs.disconnect();
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
   }, [loading]);
 
   const scrollTo = (id) => {
-    setMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    setActiveSection(id);
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const navLinks = [
@@ -93,42 +200,71 @@ export default function App() {
   return (
     <>
       {/* ─── LOADER ─── */}
+      <div className="custom-cursor-dot" aria-hidden="true"></div>
+      <div className="custom-cursor-ring" aria-hidden="true"></div>
+
       {loading && (
-        <div id="loader">
-          <div className="loading-text">Welcome to Ghaleb's Portfolio...</div>
+        <div id="loader" role="status" aria-label="Loading Ghaleb Shhab's portfolio">
+          <div className="loader-grid" aria-hidden="true"></div>
+          <div className="loader-orb loader-orb--one" aria-hidden="true"></div>
+          <div className="loader-orb loader-orb--two" aria-hidden="true"></div>
+
+          <div className="loader-terminal">
+            <div className="loader-terminal-bar">
+              <div className="loader-terminal-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span className="loader-terminal-title">ghaleb.portfolio / boot</span>
+              <span className="loader-terminal-version">v2.0</span>
+            </div>
+
+            <div className="loader-terminal-body">
+              <div className="loader-brand">
+                <span className="loader-brand-mark">GS</span>
+                <div>
+                  <span className="loader-eyebrow">SYSTEM INITIALIZATION</span>
+                  <h1>Ghaleb Shhab</h1>
+                </div>
+              </div>
+
+              <div className="loader-log" aria-hidden="true">
+                <div className="loader-log-line loader-line--1"><span className="loader-prompt">$</span><span>boot portfolio --production</span></div>
+                <div className="loader-log-line loader-line--2 loader-success"><span>✓</span><span>Loading interface components</span></div>
+                <div className="loader-log-line loader-line--3 loader-success"><span>✓</span><span>Connecting projects and credentials</span></div>
+                <div className="loader-log-line loader-line--4 loader-success"><span>✓</span><span>Preparing developer workspace</span></div>
+              </div>
+
+              <div className="loader-progress-wrap">
+                <div className="loader-progress-meta"><span>Launching portfolio</span><span className="loader-percentage">100%</span></div>
+                <div className="loader-progress-track"><span className="loader-progress-bar"></span></div>
+              </div>
+
+              <div className="loader-ready"><span className="loader-ready-dot"></span><span>Software Engineer · Full-Stack Developer · QA Engineer</span></div>
+            </div>
+          </div>
         </div>
       )}
 
       {!loading && (
-        <div id="content">
+        <div id="content" className="app-shell">
 
-          {/* ─── DESKTOP NAV ─── */}
-          <nav className="top-nav fade-in desktop-only">
+          {/* ─── FIXED RESPONSIVE NAVIGATION ─── */}
+          <nav className="top-nav fade-in" aria-label="Main navigation">
             <ul>
-              {navLinks.map((l) => (
-                <li key={l.id}
-                  className={activeSection === l.id ? "active-link" : ""}
-                  onClick={() => scrollTo(l.id)}>
-                  {l.label}
+              {navLinks.map((link) => (
+                <li key={link.id}>
+                  <button
+                    type="button"
+                    className={activeSection === link.id ? "active-link" : ""}
+                    onClick={() => scrollTo(link.id)}
+                    aria-current={activeSection === link.id ? "page" : undefined}
+                  >
+                    {link.label}
+                  </button>
                 </li>
               ))}
             </ul>
           </nav>
-
-          {/* ─── MOBILE TOGGLE ─── */}
-          <div className="mobile-toggle mobile-only" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </div>
-
-          {mobileMenuOpen && (
-            <div className="mobile-menu mobile-only">
-              <ul>
-                {navLinks.map((l) => (
-                  <li key={l.id} onClick={() => scrollTo(l.id)}>{l.label}</li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           <div className="container">
 
@@ -171,15 +307,15 @@ export default function App() {
 
                   <div className="hero-stats">
                     <div className="stat-item">
-                      <span className="stat-num">6+</span>
+                      <span className="stat-num">7</span>
                       <span className="stat-label">Certifications</span>
                     </div>
                     <div className="stat-item">
-                      <span className="stat-num">8+</span>
-                      <span className="stat-label">Projects</span>
+                      <span className="stat-num">5</span>
+                      <span className="stat-label">Featured Projects</span>
                     </div>
                     <div className="stat-item">
-                      <span className="stat-num">10+</span>
+                      <span className="stat-num">25+</span>
                       <span className="stat-label">Technologies</span>
                     </div>
                   </div>
@@ -197,12 +333,19 @@ export default function App() {
                     </div>
                     <span className="code-tag tl">&lt;dev /&gt;</span>
                     <span className="code-tag br">G7lb</span>
+                    <span className="orbit-chip orbit-chip--react">React</span>
+                    <span className="orbit-chip orbit-chip--spring">Spring</span>
+                    <span className="orbit-chip orbit-chip--qa">QA</span>
                   </div>
 
                   <div className="photo-glow"></div>
                 </div>
 
               </div>
+              <button className="scroll-cue" onClick={() => scrollTo("about")} aria-label="Scroll to About section">
+                <span>Scroll to explore</span>
+                <span className="scroll-cue-mouse"><span></span></span>
+              </button>
             </header>
 
             {/* ════════════════════════════════════════
@@ -432,7 +575,7 @@ export default function App() {
                     <div key={i} className="terminal-output success">✓ {s}</div>
                   ))}
                   <div className="terminal-line"><span className="prompt">$</span> status</div>
-                  <div className="terminal-output status">6 Credentials Verified </div>
+                  <div className="terminal-output status">7 Credentials Verified </div>
                 </div>
               </div>
 
@@ -494,58 +637,472 @@ export default function App() {
                 </div>
               </div>
 
+              <div className="project-filters" role="group" aria-label="Filter projects">
+                {[
+                  { id: "all", label: "All Projects" },
+                  { id: "fullstack", label: "Full Stack" },
+                  { id: "frontend", label: "Frontend" },
+                  { id: "qa", label: "QA Automation" }
+                ].map((filter) => (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    className={activeProjectFilter === filter.id ? "project-filter active" : "project-filter"}
+                    onClick={() => setActiveProjectFilter(filter.id)}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
+
               <div className="projects-grid">
 
                 {/* JoMap */}
-                <div className="glass-card project-card">
-                  <div className="project-status"><span className="status-dot"></span>Active Project</div>
-                  <h3>🗺️ JoMap System</h3>
-                  <span className="project-subtitle">Full Stack Mobile Application</span>
-                  <p className="project-description">
-                    JoMap is a mobile application designed to help users discover and navigate
-                    locations through an interactive mapping experience. The system combines a
-                    Kotlin-based Android application with a Spring Boot backend and MySQL database
-                    to provide secure, scalable, and efficient location-based services.
-                  </p>
-                  <div className="project-features">
-                    <h4>Key Features</h4>
-                    <ul>
-                      {["User Authentication & Authorization","Interactive Map Integration","Location Search & Navigation","Real-Time Data Retrieval","REST API Communication","Responsive Mobile Experience","Database Management with MySQL","Secure Backend Services"].map((f,i) => <li key={i}>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div className="tech-stack">
-                    {["Kotlin","Spring Boot","Java","MySQL","REST API"].map((t,i) => <span key={i}>{t}</span>)}
-                  </div>
-                  <div className="project-links">
-                    <a href="https://github.com/ziadmq/JoMap" target="_blank" rel="noopener noreferrer"><FaGithub /> Frontend Repo</a>
-                    <a href="https://github.com/ghalebshhab/GraduationProjectv1" target="_blank" rel="noopener noreferrer"><FaGithub /> Backend Repo</a>
-                  </div>
-                </div>
+               <div className={`glass-card project-card ${activeProjectFilter !== "all" && activeProjectFilter !== "fullstack" ? "project-card--hidden" : ""}`}>
+
+  <div className="project-image-wrapper">
+    <img
+      src={JoMapImage}
+      alt="JoMap mobile application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+    <div className="project-image-shine" aria-hidden="true"></div>
+
+    <span className="project-image-label">
+      Mobile Application
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Active Project
+    </div>
+
+    <h3>🗺️ JoMap System</h3>
+
+    <span className="project-subtitle">
+      Full Stack Mobile Application
+    </span>
+
+    <p className="project-description">
+      JoMap is a mobile application designed to help users discover and
+      navigate locations through an interactive mapping experience. The
+      system combines a Kotlin-based Android application with a Spring Boot
+      backend and MySQL database.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "User Authentication & Authorization",
+          "Interactive Map Integration",
+          "Location Search & Navigation",
+          "Real-Time Data Retrieval",
+          "REST API Communication",
+          "Responsive Mobile Experience",
+          "Database Management with MySQL",
+          "Secure Backend Services"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "Kotlin",
+        "Spring Boot",
+        "Java",
+        "MySQL",
+        "REST API"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ziadmq/JoMap"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        Frontend Repo
+      </a>
+
+      <a
+        href="https://github.com/ghalebshhab/GraduationProjectv1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        Backend Repo
+      </a>
+    </div>
+
+  </div>
+</div>
 
                 {/* QA Automation */}
-                <div className="glass-card project-card">
-                  <div className="project-status"><span className="status-dot"></span>Completed</div>
-                  <h3>🎭 QA Automation Framework</h3>
-                  <span className="project-subtitle">Selenium UI &amp; API Test Automation</span>
-                  <p className="project-description">
-                    End-to-end automation testing framework built for a Todo application, covering
-                    both REST API and UI testing. The framework validates business logic,
-                    authentication flows, data consistency, and user interactions while maintaining
-                    scalability and code reusability.
-                  </p>
-                  <div className="project-features">
-                    <h4>Key Features</h4>
-                    <ul>
-                      {["REST API Testing","Authentication Token Validation","CRUD Operations Testing","Selenium UI Automation","Page Object Model Architecture","Allure Reporting","GitHub Actions CI/CD","Reusable Test Utilities"].map((f,i) => <li key={i}>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div className="tech-stack">
-                    {["Java","Selenium","TestNG","Maven","REST API","Allure","GitHub Actions"].map((t,i) => <span key={i}>{t}</span>)}
-                  </div>
-                  <div className="project-links">
-                    <a href="https://github.com/ghalebshhab/Selinium-Automation-Project" target="_blank" rel="noopener noreferrer"><FaGithub /> View Repository</a>
-                  </div>
-                </div>
+              <div className={`glass-card project-card ${activeProjectFilter !== "all" && activeProjectFilter !== "qa" ? "project-card--hidden" : ""}`}>
+
+  <div className="project-image-wrapper">
+    <img
+      src={AutomationImage}
+      alt="QA automation framework preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+    <div className="project-image-shine" aria-hidden="true"></div>
+
+    <span className="project-image-label">
+      QA Automation
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>🎭 QA Automation Framework</h3>
+
+    <span className="project-subtitle">
+      Selenium UI &amp; API Test Automation
+    </span>
+
+    <p className="project-description">
+      End-to-end automation testing framework built for a Todo application,
+      covering both REST API and UI testing. The framework validates
+      authentication, CRUD operations, business logic, and user interactions.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "REST API Testing",
+          "Authentication Token Validation",
+          "CRUD Operations Testing",
+          "Selenium UI Automation",
+          "Page Object Model Architecture",
+          "Allure Reporting",
+          "GitHub Actions CI/CD",
+          "Reusable Test Utilities"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "Java",
+        "Selenium",
+        "TestNG",
+        "Maven",
+        "REST API",
+        "Allure",
+        "GitHub Actions"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Selinium-Automation-Project"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* Todo List Frontend Project */}
+<div className={`glass-card project-card ${activeProjectFilter !== "all" && activeProjectFilter !== "frontend" ? "project-card--hidden" : ""}`}>
+
+  <div className="project-image-wrapper">
+    <img
+      src={TodoProjectImage}
+      alt="Todo List React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+    <div className="project-image-shine" aria-hidden="true"></div>
+
+    <span className="project-image-label">
+      React Frontend
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>✅ Todo List Application</h3>
+
+    <span className="project-subtitle">
+      React.js Task Management Application
+    </span>
+
+    <p className="project-description">
+      A responsive task management application developed using React.js.
+      The application allows users to create, update, complete, filter, and
+      delete daily tasks through a clean and user-friendly interface.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Create New Tasks",
+          "Edit Existing Tasks",
+          "Mark Tasks as Completed",
+          "Delete Tasks",
+          "Filter Tasks by Status",
+          "Dynamic User Interface",
+          "Reusable React Components",
+          "Responsive Design"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React Hooks"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Reactapp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://reactapp-seven-mu-71.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* Weather API Frontend Project */}
+<div className={`glass-card project-card ${activeProjectFilter !== "all" && activeProjectFilter !== "frontend" ? "project-card--hidden" : ""}`}>
+
+  <div className="project-image-wrapper">
+    <img
+      src={WeatherProjectImage}
+      alt="Weather API React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+    <div className="project-image-shine" aria-hidden="true"></div>
+
+    <span className="project-image-label">
+      React API Project
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>🌦️ Weather API Application</h3>
+
+    <span className="project-subtitle">
+      React.js Weather Forecast Application
+    </span>
+
+    <p className="project-description">
+      A responsive weather application developed using React.js and a
+      third-party weather API. Users can search for cities and view current
+      weather information through a modern and easy-to-use interface.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Search Weather by City",
+          "Real-Time Weather Data",
+          "Current Temperature Display",
+          "Weather Condition Details",
+          "Humidity and Wind Information",
+          "City Search Suggestions",
+          "Arabic and English Support",
+          "Error and Loading Handling",
+          "Responsive User Interface"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "REST API",
+        "OpenWeather API",
+        "HTML5",
+        "CSS3"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/WeatherApp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://weather-app-chi-lilac-65.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* CV Generator Frontend Project */}
+<div className={`glass-card project-card ${activeProjectFilter !== "all" && activeProjectFilter !== "frontend" ? "project-card--hidden" : ""}`}>
+
+  <div className="project-image-wrapper">
+    <img
+      src={CvImage}
+      alt="CV Generator React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+    <div className="project-image-shine" aria-hidden="true"></div>
+
+    <span className="project-image-label">
+      React Frontend
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>📄 CV Generator Application</h3>
+
+    <span className="project-subtitle">
+      React.js Resume Builder
+    </span>
+
+    <p className="project-description">
+      A responsive CV generator application built using React.js. The application
+      allows users to enter their personal information, education, skills, work
+      experience, and contact details, then instantly preview a professionally
+      formatted resume.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Personal Information Form",
+          "Education Section Management",
+          "Work Experience Management",
+          "Skills and Languages Sections",
+          "Real-Time CV Preview",
+          "Dynamic Form Updates",
+          "Reusable React Components",
+          "Responsive Resume Layout",
+          "Print and PDF-Friendly Design"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React Hooks"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Cv"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://cv-pi-mocha.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
 
               </div>
             </section>
@@ -555,24 +1112,345 @@ export default function App() {
           {/* ════════════════════════════════════════
               CONTACT / FOOTER
           ════════════════════════════════════════ */}
-          <footer id="contact">
-            <div className="footer-content">
-              <h2 className="gradient-text">Let's Work Together</h2>
-              <p className="footer-sub">
-                I'm currently available for freelance work or full-time positions.
-                Let's build something great.
-              </p>
-              <div className="socials">
-                <a href="https://www.linkedin.com/in/ghaleb-shhab-99518b2b2" target="_blank" rel="noreferrer" className="social-btn"><FaLinkedin /></a>
-                <a href="https://wa.me/9622600109" target="_blank" rel="noreferrer" className="social-btn"><FaWhatsapp /></a>
-                <a href="https://www.instagram.com/ghm_shh" target="_blank" rel="noreferrer" className="social-btn"><FaInstagram /></a>
-                <a href="https://github.com/ghalebshhab" target="_blank" rel="noreferrer" className="social-btn"><FaGithub /></a>
-              </div>
-              <div className="copyright">
-                <p>© 2026 Ghaleb Shhab. All Rights Reserved.</p>
-              </div>
+         <footer id="contact" className="contact-section">
+
+  <div className="contact-orb contact-orb-one"></div>
+  <div className="contact-orb contact-orb-two"></div>
+
+  <div className="contact-shell">
+
+    <div className="contact-heading reveal">
+
+      <span className="contact-eyebrow">
+        <span className="contact-eyebrow-dot"></span>
+        Available for new opportunities
+      </span>
+
+      <h2>
+        Let&apos;s build something
+        <span className="gradient-text"> great together.</span>
+      </h2>
+
+      <p>
+        I&apos;m open to Software Engineering, Full-Stack Development,
+        QA Engineering, freelance projects, and remote opportunities.
+      </p>
+
+    </div>
+
+    <div className="contact-layout">
+
+      {/* LEFT SIDE */}
+      <div className="contact-main-card glass-card reveal">
+
+        <div className="contact-card-top">
+
+          <div>
+            <span className="contact-mini-label">
+              CURRENT STATUS
+            </span>
+
+            <h3>
+              Open to work
+            </h3>
+          </div>
+
+          <div className="contact-live-status">
+            <span></span>
+            Available
+          </div>
+
+        </div>
+
+        <div className="availability-grid">
+
+          <div className="availability-card">
+            <div className="availability-icon">
+              <FaBriefcase />
             </div>
-          </footer>
+
+            <div>
+              <h4>Full-Time</h4>
+              <p>Open to permanent roles</p>
+            </div>
+          </div>
+
+          <div className="availability-card">
+            <div className="availability-icon">
+              <FaLaptopCode />
+            </div>
+
+            <div>
+              <h4>Software Engineering</h4>
+              <p>Frontend, backend, and full-stack</p>
+            </div>
+          </div>
+
+          <div className="availability-card">
+            <div className="availability-icon">
+              <FaBug />
+            </div>
+
+            <div>
+              <h4>QA Engineering</h4>
+              <p>Manual and automation testing</p>
+            </div>
+          </div>
+
+          <div className="availability-card">
+            <div className="availability-icon">
+              <FaGlobe />
+            </div>
+
+            <div>
+              <h4>Remote Work</h4>
+              <p>Available worldwide</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div className="contact-separator">
+          <span>CONTACT CHANNELS</span>
+        </div>
+
+        <div className="contact-links-grid">
+
+          <a
+            href="mailto:ghalebshhab12@icloud.com"
+            className="contact-channel"
+            aria-label="Send an email to Ghaleb Shhab"
+          >
+            <div className="contact-channel-icon">
+              <FaEnvelope />
+            </div>
+
+            <div className="contact-channel-content">
+              <span>Email</span>
+              <strong>ghalebshhab12@icloud.com</strong>
+            </div>
+
+            <FaArrowUpRightFromSquare className="contact-channel-arrow" />
+          </a>
+
+          <a
+            href="https://wa.me/962792600109"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-channel"
+            aria-label="Contact Ghaleb Shhab on WhatsApp"
+          >
+            <div className="contact-channel-icon">
+              <FaWhatsapp />
+            </div>
+
+            <div className="contact-channel-content">
+              <span>WhatsApp</span>
+              <strong>+962 79 260 0109</strong>
+            </div>
+
+            <FaArrowUpRightFromSquare className="contact-channel-arrow" />
+          </a>
+
+          <a
+            href="https://github.com/ghalebshhab"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-channel"
+            aria-label="Open Ghaleb Shhab's GitHub profile"
+          >
+            <div className="contact-channel-icon">
+              <FaGithub />
+            </div>
+
+            <div className="contact-channel-content">
+              <span>GitHub</span>
+              <strong>github.com/ghalebshhab</strong>
+            </div>
+
+            <FaArrowUpRightFromSquare className="contact-channel-arrow" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/ghaleb-m-shhab-99518b2b2?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-channel"
+            aria-label="Open Ghaleb Shhab's LinkedIn profile"
+          >
+            <div className="contact-channel-icon">
+              <FaLinkedin />
+            </div>
+
+            <div className="contact-channel-content">
+              <span>LinkedIn</span>
+              <strong>Ghaleb Shhab</strong>
+            </div>
+
+            <FaArrowUpRightFromSquare className="contact-channel-arrow" />
+          </a>
+
+        </div>
+
+      </div>
+
+      {/* RIGHT SIDE */}
+      <div className="resume-panel glass-card reveal">
+
+        <span className="contact-mini-label">
+          RESUME CENTER
+        </span>
+
+        <h3>
+          Choose the CV that matches your opportunity
+        </h3>
+
+        <p>
+          I prepared two specialized resumes so recruiters can quickly review
+          the experience most relevant to their role.
+        </p>
+
+        <div className="resume-option resume-option-software">
+
+          <div className="resume-option-header">
+
+            <div className="resume-option-icon">
+              <FaLaptopCode />
+            </div>
+
+            <div>
+              <span>Development Track</span>
+              <h4>Software Engineer CV</h4>
+            </div>
+
+          </div>
+
+          <p>
+            Focused on React.js, Java, Spring Boot, REST APIs,
+            database design, and full-stack development.
+          </p>
+
+          <div className="resume-tags">
+            <span>React.js</span>
+            <span>Spring Boot</span>
+            <span>Java</span>
+          </div>
+
+          <a
+            href="./Ghaleb_Shhab_CV_Final.pdf"
+            download
+            className="resume-download-btn"
+          >
+            <FaDownload />
+            Download Software CV
+          </a>
+
+        </div>
+
+        <div className="resume-option resume-option-qa">
+
+          <div className="resume-option-header">
+
+            <div className="resume-option-icon">
+              <FaBug />
+            </div>
+
+            <div>
+              <span>Quality Track</span>
+              <h4>QA Engineer CV</h4>
+            </div>
+
+          </div>
+
+          <p>
+            Focused on manual testing, Selenium, TestNG,
+            Postman, API automation, CI/CD, and test reporting.
+          </p>
+
+          <div className="resume-tags">
+            <span>Selenium</span>
+            <span>Postman</span>
+            <span>TestNG</span>
+          </div>
+
+          <a
+            href="./Ghaleb_Shhab_CV_v2.pdf"
+            download
+            className="resume-download-btn resume-download-btn-qa"
+          >
+            <FaDownload />
+            Download QA CV
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div className="contact-footer-bottom">
+
+      <div>
+        <span>Designed &amp; developed by</span>
+        <strong>Ghaleb Shhab</strong>
+      </div>
+
+      <p>
+        © 2026 Ghaleb Shhab. All rights reserved.
+      </p>
+
+      <div className="contact-footer-socials">
+
+        <a
+          href="mailto:ghalebshhab12@icloud.com"
+          aria-label="Email"
+        >
+          <FaEnvelope />
+        </a>
+
+        <a
+          href="https://wa.me/962792600109"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="WhatsApp"
+        >
+          <FaWhatsapp />
+        </a>
+
+        <a
+          href="https://github.com/ghalebshhab"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <FaGithub />
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/ghaleb-m-shhab-99518b2b2?utm_source=share_via&utm_content=profile&utm_medium=member_ios"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <FaLinkedin />
+        </a>
+
+        <a
+          href="https://www.instagram.com/ghm_shh"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Instagram"
+        >
+          <FaInstagram />
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
 
         </div>
       )}
