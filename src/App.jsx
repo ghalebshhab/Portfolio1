@@ -13,7 +13,8 @@ import AutomationImage from "./qa_automation_project_banner.png";
 import TodoProjectImage from "./Todo-List.png";
 import WeatherProjectImage from "./Weather-App.png";
 import CvImage from "./Cv-Generator.png";
-
+import SwCv from "../public/Ghaleb_Shhab_CV_Final.pdf";
+import QaCv from "../public/Ghaleb_Shhab_CV_v2.pdf";
 import {
   FaLinkedin,
   FaWhatsapp,
@@ -1454,7 +1455,7 @@ export default function App() {
           </div>
 
           <a
-            href="./Ghaleb_Shhab_CV_Final.pdf"
+            href={SwCv}
             download
             className="resume-download-btn"
           >
@@ -1491,7 +1492,7 @@ export default function App() {
           </div>
 
           <a
-            href="./Ghaleb_Shhab_CV_v2.pdf"
+            href={QaCv}
             download
             className="resume-download-btn resume-download-btn-qa"
           >
