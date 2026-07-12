@@ -8,6 +8,11 @@ import Image5 from "./Selinium-proj.png";
 import Image6 from "./Step-Certificate.png";
 import Image7 from "./spring-boot-certificate.jpg";
 import yourImage from "../src/Me-6.jpeg";
+import JoMapImage from "./Jomap-pict.png";
+import AutomationImage from "./qa_automation_project_banner.png";
+import TodoProjectImage from "./Todo-List.png";
+import WeatherProjectImage from "./Weather-App.png";
+import CvImage from "./Cv-Generator.png";
 import {
   FaLinkedin, FaWhatsapp, FaInstagram, FaFacebook, FaGithub,
   FaBars, FaTimes
@@ -497,55 +502,446 @@ export default function App() {
               <div className="projects-grid">
 
                 {/* JoMap */}
-                <div className="glass-card project-card">
-                  <div className="project-status"><span className="status-dot"></span>Active Project</div>
-                  <h3>🗺️ JoMap System</h3>
-                  <span className="project-subtitle">Full Stack Mobile Application</span>
-                  <p className="project-description">
-                    JoMap is a mobile application designed to help users discover and navigate
-                    locations through an interactive mapping experience. The system combines a
-                    Kotlin-based Android application with a Spring Boot backend and MySQL database
-                    to provide secure, scalable, and efficient location-based services.
-                  </p>
-                  <div className="project-features">
-                    <h4>Key Features</h4>
-                    <ul>
-                      {["User Authentication & Authorization","Interactive Map Integration","Location Search & Navigation","Real-Time Data Retrieval","REST API Communication","Responsive Mobile Experience","Database Management with MySQL","Secure Backend Services"].map((f,i) => <li key={i}>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div className="tech-stack">
-                    {["Kotlin","Spring Boot","Java","MySQL","REST API"].map((t,i) => <span key={i}>{t}</span>)}
-                  </div>
-                  <div className="project-links">
-                    <a href="https://github.com/ziadmq/JoMap" target="_blank" rel="noopener noreferrer"><FaGithub /> Frontend Repo</a>
-                    <a href="https://github.com/ghalebshhab/GraduationProjectv1" target="_blank" rel="noopener noreferrer"><FaGithub /> Backend Repo</a>
-                  </div>
-                </div>
+               <div className="glass-card project-card">
+
+  <div className="project-image-wrapper">
+    <img
+      src={JoMapImage}
+      alt="JoMap mobile application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+
+    <span className="project-image-label">
+      Mobile Application
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Active Project
+    </div>
+
+    <h3>🗺️ JoMap System</h3>
+
+    <span className="project-subtitle">
+      Full Stack Mobile Application
+    </span>
+
+    <p className="project-description">
+      JoMap is a mobile application designed to help users discover and
+      navigate locations through an interactive mapping experience. The
+      system combines a Kotlin-based Android application with a Spring Boot
+      backend and MySQL database.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "User Authentication & Authorization",
+          "Interactive Map Integration",
+          "Location Search & Navigation",
+          "Real-Time Data Retrieval",
+          "REST API Communication",
+          "Responsive Mobile Experience",
+          "Database Management with MySQL",
+          "Secure Backend Services"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "Kotlin",
+        "Spring Boot",
+        "Java",
+        "MySQL",
+        "REST API"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ziadmq/JoMap"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        Frontend Repo
+      </a>
+
+      <a
+        href="https://github.com/ghalebshhab/GraduationProjectv1"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        Backend Repo
+      </a>
+    </div>
+
+  </div>
+</div>
 
                 {/* QA Automation */}
-                <div className="glass-card project-card">
-                  <div className="project-status"><span className="status-dot"></span>Completed</div>
-                  <h3>🎭 QA Automation Framework</h3>
-                  <span className="project-subtitle">Selenium UI &amp; API Test Automation</span>
-                  <p className="project-description">
-                    End-to-end automation testing framework built for a Todo application, covering
-                    both REST API and UI testing. The framework validates business logic,
-                    authentication flows, data consistency, and user interactions while maintaining
-                    scalability and code reusability.
-                  </p>
-                  <div className="project-features">
-                    <h4>Key Features</h4>
-                    <ul>
-                      {["REST API Testing","Authentication Token Validation","CRUD Operations Testing","Selenium UI Automation","Page Object Model Architecture","Allure Reporting","GitHub Actions CI/CD","Reusable Test Utilities"].map((f,i) => <li key={i}>{f}</li>)}
-                    </ul>
-                  </div>
-                  <div className="tech-stack">
-                    {["Java","Selenium","TestNG","Maven","REST API","Allure","GitHub Actions"].map((t,i) => <span key={i}>{t}</span>)}
-                  </div>
-                  <div className="project-links">
-                    <a href="https://github.com/ghalebshhab/Selinium-Automation-Project" target="_blank" rel="noopener noreferrer"><FaGithub /> View Repository</a>
-                  </div>
-                </div>
+              <div className="glass-card project-card">
+
+  <div className="project-image-wrapper">
+    <img
+      src={AutomationImage}
+      alt="QA automation framework preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+
+    <span className="project-image-label">
+      QA Automation
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>🎭 QA Automation Framework</h3>
+
+    <span className="project-subtitle">
+      Selenium UI &amp; API Test Automation
+    </span>
+
+    <p className="project-description">
+      End-to-end automation testing framework built for a Todo application,
+      covering both REST API and UI testing. The framework validates
+      authentication, CRUD operations, business logic, and user interactions.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "REST API Testing",
+          "Authentication Token Validation",
+          "CRUD Operations Testing",
+          "Selenium UI Automation",
+          "Page Object Model Architecture",
+          "Allure Reporting",
+          "GitHub Actions CI/CD",
+          "Reusable Test Utilities"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "Java",
+        "Selenium",
+        "TestNG",
+        "Maven",
+        "REST API",
+        "Allure",
+        "GitHub Actions"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Selinium-Automation-Project"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* Todo List Frontend Project */}
+<div className="glass-card project-card">
+
+  <div className="project-image-wrapper">
+    <img
+      src={TodoProjectImage}
+      alt="Todo List React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+
+    <span className="project-image-label">
+      React Frontend
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>✅ Todo List Application</h3>
+
+    <span className="project-subtitle">
+      React.js Task Management Application
+    </span>
+
+    <p className="project-description">
+      A responsive task management application developed using React.js.
+      The application allows users to create, update, complete, filter, and
+      delete daily tasks through a clean and user-friendly interface.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Create New Tasks",
+          "Edit Existing Tasks",
+          "Mark Tasks as Completed",
+          "Delete Tasks",
+          "Filter Tasks by Status",
+          "Dynamic User Interface",
+          "Reusable React Components",
+          "Responsive Design"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React Hooks"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Reactapp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://reactapp-seven-mu-71.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* Weather API Frontend Project */}
+<div className="glass-card project-card">
+
+  <div className="project-image-wrapper">
+    <img
+      src={WeatherProjectImage}
+      alt="Weather API React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+
+    <span className="project-image-label">
+      React API Project
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>🌦️ Weather API Application</h3>
+
+    <span className="project-subtitle">
+      React.js Weather Forecast Application
+    </span>
+
+    <p className="project-description">
+      A responsive weather application developed using React.js and a
+      third-party weather API. Users can search for cities and view current
+      weather information through a modern and easy-to-use interface.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Search Weather by City",
+          "Real-Time Weather Data",
+          "Current Temperature Display",
+          "Weather Condition Details",
+          "Humidity and Wind Information",
+          "City Search Suggestions",
+          "Arabic and English Support",
+          "Error and Loading Handling",
+          "Responsive User Interface"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "REST API",
+        "OpenWeather API",
+        "HTML5",
+        "CSS3"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/WeatherApp"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://weather-app-chi-lilac-65.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
+{/* CV Generator Frontend Project */}
+<div className="glass-card project-card">
+
+  <div className="project-image-wrapper">
+    <img
+      src={CvImage}
+      alt="CV Generator React application preview"
+      className="project-image"
+    />
+
+    <div className="project-image-overlay"></div>
+
+    <span className="project-image-label">
+      React Frontend
+    </span>
+  </div>
+
+  <div className="project-card-content">
+
+    <div className="project-status">
+      <span className="status-dot"></span>
+      Completed
+    </div>
+
+    <h3>📄 CV Generator Application</h3>
+
+    <span className="project-subtitle">
+      React.js Resume Builder
+    </span>
+
+    <p className="project-description">
+      A responsive CV generator application built using React.js. The application
+      allows users to enter their personal information, education, skills, work
+      experience, and contact details, then instantly preview a professionally
+      formatted resume.
+    </p>
+
+    <div className="project-features">
+      <h4>Key Features</h4>
+
+      <ul>
+        {[
+          "Personal Information Form",
+          "Education Section Management",
+          "Work Experience Management",
+          "Skills and Languages Sections",
+          "Real-Time CV Preview",
+          "Dynamic Form Updates",
+          "Reusable React Components",
+          "Responsive Resume Layout",
+          "Print and PDF-Friendly Design"
+        ].map((feature, index) => (
+          <li key={index}>{feature}</li>
+        ))}
+      </ul>
+    </div>
+
+    <div className="tech-stack">
+      {[
+        "React.js",
+        "JavaScript",
+        "HTML5",
+        "CSS3",
+        "React Hooks"
+      ].map((technology, index) => (
+        <span key={index}>{technology}</span>
+      ))}
+    </div>
+
+    <div className="project-links">
+      <a
+        href="https://github.com/ghalebshhab/Cv"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaGithub />
+        View Repository
+      </a>
+
+      <a
+        href="https://cv-pi-mocha.vercel.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Live Demo ↗
+      </a>
+    </div>
+
+  </div>
+</div>
 
               </div>
             </section>
@@ -563,9 +959,9 @@ export default function App() {
                 Let's build something great.
               </p>
               <div className="socials">
-                <a href="https://www.linkedin.com/in/ghaleb-shhab-99518b2b2" target="_blank" rel="noreferrer" className="social-btn"><FaLinkedin /></a>
-                <a href="https://wa.me/9622600109" target="_blank" rel="noreferrer" className="social-btn"><FaWhatsapp /></a>
-                <a href="https://www.instagram.com/ghm_shh" target="_blank" rel="noreferrer" className="social-btn"><FaInstagram /></a>
+                <a href="https://www.linkedin.com/in/ghaleb-m-shhab-99518b2b2?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noreferrer" className="social-btn"><FaLinkedin /></a>
+                <a href="https://wa.me/962792600109?text=Hi%20Ghaleb,%20I%20found%20your%20portfolio%20and%20I'd%20like%20to%20talk%20about%20a%20job%20opportunity." target="_blank" rel="noreferrer" className="social-btn"><FaWhatsapp /></a>
+                <a href="https://www.instagram.com/ghmsh04/" target="_blank" rel="noreferrer" className="social-btn"><FaInstagram /></a>
                 <a href="https://github.com/ghalebshhab" target="_blank" rel="noreferrer" className="social-btn"><FaGithub /></a>
               </div>
               <div className="copyright">
