@@ -71,8 +71,8 @@ export default function App() {
   useEffect(() => {
     document.body.classList.add("is-loading");
 
-    const duration = 6800;
-    const exitStart = 6150;
+    const duration = 4600;
+    const exitStart = 4200;
     const startedAt = performance.now();
     let animationFrame;
 
@@ -1350,24 +1350,24 @@ export default function App() {
             <FaArrowUpRightFromSquare className="contact-channel-arrow" />
           </a>
 
-          <a
-            href="https://wa.me/962792600109"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-channel"
-            aria-label="Contact Ghaleb Shhab on WhatsApp"
-          >
-            <div className="contact-channel-icon">
-              <FaWhatsapp />
-            </div>
+         <a
+  href="https://wa.me/962792600109?text=Hi%20Ghaleb!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities%20with%20you."
+  target="_blank"
+  rel="noopener noreferrer"
+  className="contact-channel"
+  aria-label="Contact Ghaleb Shhab on WhatsApp"
+>
+  <div className="contact-channel-icon">
+    <FaWhatsapp />
+  </div>
 
-            <div className="contact-channel-content">
-              <span>WhatsApp</span>
-              <strong>+962 79 260 0109</strong>
-            </div>
+  <div className="contact-channel-content">
+    <span>WhatsApp</span>
+    <strong>+962 79 260 0109</strong>
+  </div>
 
-            <FaArrowUpRightFromSquare className="contact-channel-arrow" />
-          </a>
+  <FaArrowUpRightFromSquare className="contact-channel-arrow" />
+</a>
 
           <a
             href="https://github.com/ghalebshhab"
@@ -1526,8 +1526,8 @@ export default function App() {
         </a>
 
         <a
-          href="https://wa.me/962792600109"
-          target="_blank"
+          href="https://wa.me/962792600109?text=Hi%20Ghaleb!%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20discuss%20potential%20opportunities%20with%20you."
+  target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
         >
