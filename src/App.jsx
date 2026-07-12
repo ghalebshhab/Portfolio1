@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Image  from "./Screenshot 2026-01-05 211541.png";
 import Image2 from "./Screenshot 2026-01-07 231901.png";
@@ -28,9 +28,13 @@ import {
   FaArrowUpRightFromSquare
 } from "react-icons/fa6";
 export default function App() {
-  const [loading, setLoading]           = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [loaderProgress, setLoaderProgress] = useState(0);
+  const [loaderStage, setLoaderStage] = useState("Initializing workspace");
+  const [loaderExiting, setLoaderExiting] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [activeProjectFilter, setActiveProjectFilter] = useState("all");
+  const navRef = useRef(null);
 
   const data = {
     certifications: [
@@ -66,13 +70,51 @@ export default function App() {
 
   useEffect(() => {
     document.body.classList.add("is-loading");
-    const timer = setTimeout(() => {
-      setLoading(false);
-      document.body.classList.remove("is-loading");
-    }, 3600);
+
+    const duration = 6800;
+    const exitStart = 6150;
+    const startedAt = performance.now();
+    let animationFrame;
+
+    const stages = [
+      { at: 0, text: "Initializing workspace" },
+      { at: 15, text: "Loading interface components" },
+      { at: 34, text: "Connecting projects and credentials" },
+      { at: 55, text: "Optimizing responsive experience" },
+      { at: 74, text: "Preparing developer workspace" },
+      { at: 91, text: "Running final quality checks" },
+      { at: 100, text: "Portfolio ready" },
+    ];
+
+    const animateLoader = (now) => {
+      const elapsed = now - startedAt;
+      const normalized = Math.min(elapsed / exitStart, 1);
+
+      // Eased progress feels more natural than a constant-speed bar.
+      const eased = 1 - Math.pow(1 - normalized, 2.25);
+      const progress = Math.min(100, Math.round(eased * 100));
+
+      setLoaderProgress(progress);
+
+      const currentStage = [...stages]
+        .reverse()
+        .find((stage) => progress >= stage.at);
+      setLoaderStage(currentStage?.text ?? stages[0].text);
+
+      if (elapsed >= exitStart) setLoaderExiting(true);
+
+      if (elapsed < duration) {
+        animationFrame = requestAnimationFrame(animateLoader);
+      } else {
+        setLoading(false);
+        document.body.classList.remove("is-loading");
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animateLoader);
 
     return () => {
-      clearTimeout(timer);
+      cancelAnimationFrame(animationFrame);
       document.body.classList.remove("is-loading");
     };
   }, []);
@@ -179,6 +221,21 @@ export default function App() {
     };
   }, [loading]);
 
+
+  useEffect(() => {
+    if (loading || !navRef.current) return;
+
+    const activeButton = navRef.current.querySelector(
+      `button[data-section="${activeSection}"]`
+    );
+
+    activeButton?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+  }, [activeSection, loading]);
+
   const scrollTo = (id) => {
     const section = document.getElementById(id);
     if (!section) return;
@@ -204,42 +261,82 @@ export default function App() {
       <div className="custom-cursor-ring" aria-hidden="true"></div>
 
       {loading && (
-        <div id="loader" role="status" aria-label="Loading Ghaleb Shhab's portfolio">
+        <div
+          id="loader"
+          className={loaderExiting ? "loader--exiting" : ""}
+          role="status"
+          aria-live="polite"
+          aria-label={`Loading portfolio: ${loaderProgress}%`}
+        >
           <div className="loader-grid" aria-hidden="true"></div>
           <div className="loader-orb loader-orb--one" aria-hidden="true"></div>
           <div className="loader-orb loader-orb--two" aria-hidden="true"></div>
+          <div className="loader-noise" aria-hidden="true"></div>
 
           <div className="loader-terminal">
             <div className="loader-terminal-bar">
               <div className="loader-terminal-dots" aria-hidden="true">
                 <span></span><span></span><span></span>
               </div>
-              <span className="loader-terminal-title">ghaleb.portfolio / boot</span>
-              <span className="loader-terminal-version">v2.0</span>
+              <span className="loader-terminal-title">ghaleb.portfolio / production</span>
+              <span className="loader-terminal-version">v3.0</span>
             </div>
 
             <div className="loader-terminal-body">
               <div className="loader-brand">
                 <span className="loader-brand-mark">GS</span>
                 <div>
-                  <span className="loader-eyebrow">SYSTEM INITIALIZATION</span>
+                  <span className="loader-eyebrow">DIGITAL WORKSPACE</span>
                   <h1>Ghaleb Shhab</h1>
+                  <p>Software Engineer · Full-Stack Developer · QA Engineer</p>
                 </div>
               </div>
 
+              <div className="loader-command">
+                <span className="loader-prompt">$</span>
+                <span className="loader-command-text">npm run portfolio:launch</span>
+                <span className="loader-command-cursor" aria-hidden="true"></span>
+              </div>
+
               <div className="loader-log" aria-hidden="true">
-                <div className="loader-log-line loader-line--1"><span className="loader-prompt">$</span><span>boot portfolio --production</span></div>
-                <div className="loader-log-line loader-line--2 loader-success"><span>✓</span><span>Loading interface components</span></div>
-                <div className="loader-log-line loader-line--3 loader-success"><span>✓</span><span>Connecting projects and credentials</span></div>
-                <div className="loader-log-line loader-line--4 loader-success"><span>✓</span><span>Preparing developer workspace</span></div>
+                <div className={loaderProgress >= 15 ? "loader-log-line is-visible" : "loader-log-line"}>
+                  <span className="loader-check">✓</span><span>Interface components loaded</span>
+                </div>
+                <div className={loaderProgress >= 34 ? "loader-log-line is-visible" : "loader-log-line"}>
+                  <span className="loader-check">✓</span><span>Projects and credentials connected</span>
+                </div>
+                <div className={loaderProgress >= 55 ? "loader-log-line is-visible" : "loader-log-line"}>
+                  <span className="loader-check">✓</span><span>Responsive experience optimized</span>
+                </div>
+                <div className={loaderProgress >= 74 ? "loader-log-line is-visible" : "loader-log-line"}>
+                  <span className="loader-check">✓</span><span>Developer workspace prepared</span>
+                </div>
               </div>
 
               <div className="loader-progress-wrap">
-                <div className="loader-progress-meta"><span>Launching portfolio</span><span className="loader-percentage">100%</span></div>
-                <div className="loader-progress-track"><span className="loader-progress-bar"></span></div>
+                <div className="loader-progress-meta">
+                  <span className="loader-stage">{loaderStage}</span>
+                  <span className="loader-percentage">{loaderProgress}%</span>
+                </div>
+                <div
+                  className="loader-progress-track"
+                  role="progressbar"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow={loaderProgress}
+                >
+                  <span
+                    className="loader-progress-bar"
+                    style={{ width: `${loaderProgress}%` }}
+                  ></span>
+                </div>
               </div>
 
-              <div className="loader-ready"><span className="loader-ready-dot"></span><span>Software Engineer · Full-Stack Developer · QA Engineer</span></div>
+              <div className={loaderProgress >= 91 ? "loader-ready is-visible" : "loader-ready"}>
+                <span className="loader-ready-dot"></span>
+                <span>{loaderProgress === 100 ? "Launch complete" : "Final checks in progress"}</span>
+                <span className="loader-ready-code">200 OK</span>
+              </div>
             </div>
           </div>
         </div>
@@ -249,12 +346,13 @@ export default function App() {
         <div id="content" className="app-shell">
 
           {/* ─── FIXED RESPONSIVE NAVIGATION ─── */}
-          <nav className="top-nav fade-in" aria-label="Main navigation">
+          <nav ref={navRef} className="top-nav fade-in" aria-label="Main navigation">
             <ul>
               {navLinks.map((link) => (
                 <li key={link.id}>
                   <button
                     type="button"
+                    data-section={link.id}
                     className={activeSection === link.id ? "active-link" : ""}
                     onClick={() => scrollTo(link.id)}
                     aria-current={activeSection === link.id ? "page" : undefined}
