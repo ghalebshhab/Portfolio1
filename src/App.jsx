@@ -193,31 +193,50 @@ export default function App() {
       "contact",
     ];
 
-    const updateActiveSection = () => {
-      const navigationLine = window.scrollY + 130;
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    let scrollFrame = 0;
+
+    const calculateActiveSection = () => {
+      scrollFrame = 0;
+
+      const navigationLine = window.scrollY + 140;
       let currentSection = "home";
 
-      sectionIds.forEach((id) => {
-        const section = document.getElementById(id);
-        if (section && section.offsetTop <= navigationLine) {
-          currentSection = id;
+      for (const section of sections) {
+        if (section.offsetTop <= navigationLine) {
+          currentSection = section.id;
+        } else {
+          break;
         }
-      });
+      }
 
       const nearPageBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 16;
 
-      setActiveSection(nearPageBottom ? "contact" : currentSection);
+      const nextSection = nearPageBottom ? "contact" : currentSection;
+      setActiveSection((previous) =>
+        previous === nextSection ? previous : nextSection
+      );
     };
 
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection);
+    const requestSectionUpdate = () => {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(calculateActiveSection);
+    };
+
+    calculateActiveSection();
+    window.addEventListener("scroll", requestSectionUpdate, { passive: true });
+    window.addEventListener("resize", requestSectionUpdate, { passive: true });
 
     return () => {
       revealObs.disconnect();
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+      window.removeEventListener("scroll", requestSectionUpdate);
+      window.removeEventListener("resize", requestSectionUpdate);
     };
   }, [loading]);
 
