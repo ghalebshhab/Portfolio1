@@ -1553,7 +1553,7 @@ export default function App() {
         </a>
 
         <a
-          href="https://www.instagram.com/ghm_shh"
+          href="https://www.instagram.com/ghmsh04/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
