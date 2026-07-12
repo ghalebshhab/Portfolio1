@@ -2814,3 +2814,196 @@ button,
     display: none;
   }
 }
+
+
+/* ════════════════════════════════════════════
+   ULTRA-SMOOTH INTERACTION & PERFORMANCE LAYER
+   Keep this block at the END of App.css.
+════════════════════════════════════════════ */
+
+:root {
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --speed-fast: 180ms;
+  --speed-normal: 320ms;
+  --speed-slow: 650ms;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 105px;
+  overscroll-behavior-y: none;
+}
+
+body {
+  min-width: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Animate only cheap compositor properties. */
+.btn-primary,
+.btn-secondary,
+.project-filter,
+.project-links a,
+.social-btn,
+.cv-download-btn,
+.cert-link,
+.tag,
+.edu-tag,
+.top-nav button {
+  transition-property: transform, opacity, color, background-color, border-color, box-shadow;
+  transition-duration: var(--speed-fast);
+  transition-timing-function: var(--ease-soft);
+}
+
+.glass-card,
+.project-card,
+.certification-card,
+.skill-category,
+.edu-card {
+  transition-property: transform, opacity, border-color, box-shadow;
+  transition-duration: var(--speed-normal);
+  transition-timing-function: var(--ease-smooth);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.project-image,
+.cert-image-area img,
+.hero-image {
+  transition-property: transform, opacity, filter;
+  transition-duration: 500ms;
+  transition-timing-function: var(--ease-smooth);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.reveal {
+  transition-property: opacity, transform;
+  transition-duration: 720ms;
+  transition-timing-function: var(--ease-smooth);
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  will-change: auto;
+}
+
+.top-nav {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  contain: layout paint;
+}
+
+.top-nav button,
+.project-filter,
+.btn-primary,
+.btn-secondary,
+.project-links a,
+.social-btn,
+.cv-download-btn {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.top-nav button:active,
+.project-filter:active,
+.btn-primary:active,
+.btn-secondary:active,
+.project-links a:active,
+.social-btn:active,
+.cv-download-btn:active {
+  transform: translateY(1px) scale(0.98);
+  transition-duration: 90ms;
+}
+
+/* Prevent layout shifts while images load. */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.project-image,
+.cert-image-area img,
+.hero-image {
+  height: 100%;
+}
+
+/* The custom cursor remains smooth without forcing layout calculations. */
+.custom-cursor-dot,
+.custom-cursor-ring {
+  transform-origin: center;
+  contain: strict;
+}
+
+/* Reduce GPU-heavy blur on smaller and touch devices. */
+@media (max-width: 900px), (pointer: coarse) {
+  .top-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .glass-card,
+  .loader-terminal,
+  .project-image-label,
+  .orbit-chip {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .glass-card:hover,
+  .project-card:hover,
+  .certification-card:hover {
+    transform: none;
+  }
+
+  body::before,
+  body::after {
+    opacity: 0.72;
+  }
+}
+
+/* Disable hover animations on devices that do not truly support hover. */
+@media (hover: none) {
+  .glass-card:hover,
+  .project-card:hover,
+  .certification-card:hover,
+  .skill-category:hover,
+  .tag:hover,
+  .project-image:hover {
+    transform: none;
+  }
+}
+
+/* Accessibility and low-power preference. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
